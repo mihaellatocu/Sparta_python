@@ -159,3 +159,98 @@ Use the keys() method on your dictionary to list all the keys
 
 
 ####################
+
+#Consolidation Task: Practice lists - Waiter Helper
+# Script should act like a waiter at a restaurant taking orders
+# level 1
+# Greet the user
+print("Welcome,\nLet's take your order.")
+# Print a list of starters
+starters = ["eggs", "salad", "shells"]
+
+# Take an input for the user for their starter
+customer_order = []
+# Print a list of mains
+menu = ["steak", "fish", "ribs", "burger", "soup"]
+desserts = ["cake", "pancakes", "fruits", "Ice cream"]
+
+def get_order(menu, course):
+    if course in menu:
+        print(f"{course} is in the menu.")
+        return course
+    else:
+        print(f"Sorry {course} is not in the menu")
+
+# Take an input for the user for their main course
+course_starter = input("What is your order for starter: ")
+choice_starter = get_order(starters, course_starter)
+if choice_starter:
+    customer_order.append(choice_starter)
+course_main = input("What is your order for main: ")
+choice_main = get_order(menu, course_main)
+course_desserts = input("What is your order for dessert: ")
+choice_dessert = get_order(desserts, course_desserts)
+if choice_main or choice_dessert:
+    customer_order += [choice_main, choice_dessert]
+print(customer_order)
+
+# Print a list of desserts
+# Take an input for the user for their dessert
+# Print all of the user's choices
+
+# level 2
+# Use at least one f-string
+# Add each item ordered to a list called 'customer_order_list'
+# level 3 (may need research if we have not covered dictionaries yet)
+# Use dictionaries and assign prices to the items. Create a bill at the end of the program.
+
+menu_prices = {
+    "soup": 5.00,
+    "salad": 4.50,
+    "bruschetta": 6.00,
+    "steak": 15.00,
+    "pasta": 12.00,
+    "fish": 14.00,
+    "ice cream": 4.00,
+    "cake": 5.50,
+    "fruit salad": 3.50
+}
+
+# level 4
+# Add more to this program. Recommended ways are: Only allow input that is within
+# the list, Add quantities of order etc.
+
+def get_order(menu_list, course_name):
+    while True:
+        print(f"\nAvailable {course_name}: {menu_list}")
+        choice = input(f"Please enter your {course_name[:-1]} choice: ").lower()
+        if choice in menu_list:
+            while True:
+                try:
+                    quantity = int(input(f"How many {choice} would you like? "))
+                    if quantity > 0:
+                        return (choice, quantity)
+                    else:
+                        print("Please enter a quantity of 1 or more.")
+                except ValueError:
+                    print("Please enter a valid number for quantity.")
+        else:
+            print("Sorry, that is not on the menu. Please choose from the list.")
+
+
+
+customer_order.append(get_order(starters, "starters"))
+customer_order.append(get_order(menu, "mains"))
+customer_order.append(get_order(desserts, "desserts"))
+print(customer_order)
+
+
+print("\n--- Your Order ---")
+total_bill = 0
+
+# for item, quantity in customer_order:
+#     price = menu_prices[item] * quantity
+#     total_bill += price
+#     print(f"{item.title()} x{quantity} - ${price:.2f}")
+
+print(f"\nTotal bill: ${total_bill:.2f}")
